@@ -1,0 +1,3 @@
+/home/neel/IIIT/graphics/JetPackGame/CMakeFiles/edit_cache.dir
+/home/neel/IIIT/graphics/JetPackGame/CMakeFiles/rebuild_cache.dir
+/home/neel/IIIT/graphics/JetPackGame/CMakeFiles/graphics_asgn1.dir
