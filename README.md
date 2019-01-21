@@ -1,11 +1,3 @@
-Graphics Boilerplate Code
-=========================
+### JET PACK JOY RIDE GAME
 
-This is boilerplate code for the assignments which might be helpful.
-
-
-License
--------
-The MIT License https://meghprkh.mit-license.org/
-
-Copyright &copy; 2018 Megh Parikh <meghprkh@gmail.com>
+ - this is the famous jetpack joyride game made in OpenGL
