@@ -1,4 +1,4 @@
-# Install script for directory: /home/neel/IIIT/graphics/JetPackGame
+# Install script for directory: /home/neel/IIIT/graphics/JetPackJoyRideGame
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/neel/IIIT/graphics/JetPackGame/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/neel/IIIT/graphics/JetPackJoyRideGame/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

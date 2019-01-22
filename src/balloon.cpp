@@ -1,15 +1,15 @@
-#include "coin.h"
+#include "balloon.h"
 #include "main.h"
 
-Coin::Coin(float x, float y, color_t color) {
+Balloon::Balloon(float x, float y, color_t color) {
     this->position = glm::vec3(x, y, 0);
     this->rotation = 0;
-
+    speed = 0.3;
     this->bounding_box.x = this->position.x;
     this->bounding_box.y = this->position.y;
     this->bounding_box.height = 1.0f;
     this->bounding_box.width = 1.0f;
-    // speed = 0.3;
+    gravity = 0.01;
     // Our vertices. Three consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
     // A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
     int n = 100;
@@ -33,10 +33,11 @@ Coin::Coin(float x, float y, color_t color) {
 
         phi += theta;            
     }
+
     this->object = create3DObject(GL_TRIANGLES, n*3, vertex_buffer_data, color, GL_FILL);
 }
 
-void Coin::draw(glm::mat4 VP) {
+void Balloon::draw(glm::mat4 VP) {
     Matrices.model = glm::mat4(1.0f);
     glm::mat4 translate = glm::translate (this->position);    // glTranslatef
     glm::mat4 rotate    = glm::rotate((float) (this->rotation * M_PI / 180.0f), glm::vec3(1, 0, 0));
@@ -51,11 +52,18 @@ void Coin::draw(glm::mat4 VP) {
     draw3DObject(this->object);
 }
 
-void Coin::set_position(float x, float y) {
+void Balloon::set_position(float x, float y) {
     this->position = glm::vec3(x, y, 0);
 }
 
-void Coin::tick(int dir) {
-    this->bounding_box.x = this->position.x -= (dir*0.2);
+void Balloon::tick() {
+    this->position.x += 0.3;
+    speed -= gravity;
+    this->position.y += speed; 
+    // this->rotation += speed;
+    // this->position.x += speed/100;
+    // this->position.y += speed/500;
+    
 }
+
 

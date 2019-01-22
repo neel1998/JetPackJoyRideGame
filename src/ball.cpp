@@ -47,28 +47,34 @@ void Ball::tick() {
     // this->rotation += speed;
     // this->position.x += speed/100;
     // this->position.y += speed/500;
-    if (this->position.y > -9){
-    	this->bounding_box.y =  this->position.y -= speed;
+    float temp = this->position.y - (speed+= 0.03);
+    if (temp > -9){
+    	this->bounding_box.y =  this->position.y = temp;
+    }
+    else{
+    	this->bounding_box.y =  this->position.y = -9.0f;	
     }
 }
 
 void Ball::moveL() {
     // this->rotation += speed;
-    this->bounding_box.x = this->position.x -= speed;
+    this->bounding_box.x = this->position.x -= 0.3f;
     // this->position.y -= speed;
 }
 
 void Ball::moveR() {
     // this->rotation += speed;
-    this->bounding_box.x = this->position.x += speed;
+    this->bounding_box.x = this->position.x += 0.3f;
     // this->position.y -= speed;
 }
 
 void Ball::moveD() {
     // this->rotation += speed;
-    this->bounding_box.y = this->position.y -= speed;
+    this->bounding_box.y = this->position.y -= 0.3f;
     // this->position.y -= speed;
 }
 void Ball::jump() {
-	this->bounding_box.y = this->position.y += 1;
+	this->speed = 0.3f;
+	if (this->position.y + 2 <= 10)
+		this->bounding_box.y = this->position.y += 1;
 }

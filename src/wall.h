@@ -1,13 +1,13 @@
 #include "main.h"
 
-#ifndef FLOOR_H
-#define FLOOR_H
+#ifndef WALL_H
+#define WALL_H
 
 
-class Floor {
+class Wall {
 public:
-    Floor() {}
-    Floor(float x, float y, color_t color);
+    Wall() {}
+    Wall(float x, float y, color_t color);
     glm::vec3 position;
     float rotation;
     void draw(glm::mat4 VP);

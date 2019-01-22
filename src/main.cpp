@@ -4,7 +4,10 @@
 #include "ground.h"
 #include "prop.h"
 #include "coin.h"
+#include "wall.h"
+#include "balloon.h"
 #include <cstdlib>
+#include "fire.h"
 using namespace std;
 
 GLMatrices Matrices;
@@ -14,12 +17,15 @@ GLFWwindow *window;
 /**************************
 * Customizable functions *
 **************************/
-
+Fire fire[20];
 Ball ball1;
 Ground ground;
+Wall wall;
 Coin coins[100];
-Prop prop;
+Balloon balloon;
+Prop prop[10];
 glm::mat4 VP;
+int shoot = 1;
 float screen_zoom = 1, screen_center_x = 0, screen_center_y = 0;
 float camera_rotation_angle = 0;
 
@@ -60,11 +66,23 @@ void draw() {
     // Scene render
     ball1.draw(VP);
     ground.draw(VP);
+    wall.draw(VP);
     for (int i = 0; i < 100; i++) {
         if (!coins[i].collided){
     	   coins[i].draw(VP);
         }
     }
+    // if (ball1.position.y != -9){
+    // 	for (int i = 0; i < 5; i++){
+    // 		prop[i].draw(VP);
+    // 	}
+    // }
+   	balloon.draw(VP);
+   	for (int i = 0; i < 20 ; i++){
+   		if (!fire[i].collided){
+   			fire[i].draw(VP);
+   		}
+   	}
 }
 
 void tick_input(GLFWwindow *window) {
@@ -72,34 +90,115 @@ void tick_input(GLFWwindow *window) {
     int left  = glfwGetKey(window, GLFW_KEY_LEFT);
     int right = glfwGetKey(window, GLFW_KEY_RIGHT);
     int up = glfwGetKey(window, GLFW_KEY_UP);
+    int space = glfwGetKey(window, GLFW_KEY_SPACE);
     if (left) {
         // Do something
+        if (ball1.position.x > 0 && ball1.position.x < 20){
+       		for (int i = 0; i < 100; i++) {
+        		if (detect_collision(ball1.bounding_box, coins[i].bounding_box)) {
+            		coins[i].collided = true;
+        		}
+    			coins[i].tick(-1);
+    		}
+    		for (int i = 0; i < 20; i++){
+    			fire[i].tick(-1);
+    		}
+    	}
+    	
         ball1.moveL();
     }
     if (right){
+        if (ball1.position.x > 0 && ball1.position.x < 20){
+    		for (int i = 0; i < 100; i++) {
+        		if (detect_collision(ball1.bounding_box, coins[i].bounding_box)) {
+            		coins[i].collided = true;
+        		}
+    			coins[i].tick(1);
+    		}
+    		for (int i = 0; i < 20; i++){
+    			fire[i].tick(1);
+    		}
+    	}
+    	if (ball1.position.x > 20){
+    		ball1.set_position(0.0f, ball1.position.y);
+    		for (int i = 0; i < 100; i++) {
+        		if (detect_collision(ball1.bounding_box, coins[i].bounding_box)) {
+            		coins[i].collided = true;
+        		}
+    			coins[i].tick(100);
+    		}
+    		for (int i = 0; i < 20; i++){
+    			fire[i].tick(100);
+    		}	
+    	}
     	ball1.moveR();
     }
     if (up){
     	ball1.jump();
-    	propulsion();
+    	// propulsion();
     }
+    if(space && shoot){
+    	balloon = Balloon(ball1.position.x, ball1.position.y, COLOR_BLACK);
+    	shoot = 0;
+    }
+
 }
 void propulsion() {
-	prop = Prop(-15, -10, COLOR_RED);
-    prop.draw(VP);
+	for (int i = 0; i < 5; i ++){
+		float dir;
+		if (i%2) {
+			dir = -1;
+		}
+		else{
+			dir = 1;
+		}
+		prop[i] = Prop( ball1.position.x + dir, ball1.position.y - i - 1 , COLOR_RED );
+	}
 }
 void tick_elements() {
     
     // printf("ball 1 x = %f ball 2 x=%f\n", ball1.position.x, ball2.position.x);
     ball1.tick();
     ground.tick();
+    wall.tick();
     for (int i = 0; i < 100; i++) {
-        if (detect_collision(ball1.bounding_box, coins[i].bounding_box)) {
-            coins[i].collided = true;
-        }
-    	coins[i].tick();
+    	if (detect_collision(ball1.bounding_box, coins[i].bounding_box)) {
+       		coins[i].collided = true;
+    	}
     }
-    // prop.tick();
+    if (balloon.position.y > 10 || balloon.position.y < -10 || balloon.position.x > 20){
+    	balloon.position.x = 1000;
+    	balloon.position.y = 1000;
+    	shoot = 1;
+    }
+    else {
+    	for (int i = 0; i < 20; i ++) {
+    		// int i = 0;
+    		float dist1 = sqrt( pow(balloon.position.x - fire[i].position.x - 3*cos(fire[i].rotation * M_PI / 180.0f),2) + pow(balloon.position.y - fire[i].position.y - 3*sin(fire[i].rotation * M_PI / 180.0f) ,2) ); 
+    		float dist2 = sqrt( pow(balloon.position.x - fire[i].position.x + 3*cos(fire[i].rotation * M_PI / 180.0f),2) + pow(balloon.position.y - fire[i].position.y + 3*sin(fire[i].rotation * M_PI / 180.0f) ,2) );
+    		// printf("%d : %.2f\n",i,dist1 + dist2 );
+    		if (abs(dist1 + dist2 - 6.0f) <= 0.05f){
+    			// printf("collided\n");
+    			fire[i].collided = true;
+    			balloon.position.x = 1000;
+    			balloon.position.y = 1000;
+    			shoot = 1;			
+    		}
+    		
+    	}
+    }
+    for (int i = 0; i < 20; i ++) {
+   		float dist1 = sqrt( pow(ball1.position.x - fire[i].position.x - 3*cos(fire[i].rotation * M_PI / 180.0f),2) + pow(ball1.position.y - fire[i].position.y - 3*sin(fire[i].rotation * M_PI / 180.0f) ,2) ); 
+    	float dist2 = sqrt( pow(ball1.position.x - fire[i].position.x + 3*cos(fire[i].rotation * M_PI / 180.0f),2) + pow(ball1.position.y - fire[i].position.y + 3*sin(fire[i].rotation * M_PI / 180.0f) ,2) );
+    	if ( abs(dist1 + dist2 - 6.0f) <= 0.05f) {
+    		ball1.position.x = -10.0f;
+    	}
+    }
+	balloon.tick();
+    // for (int i = 0; i < 5; i++){
+    // 	prop[i].tick();
+    // }
+    // propulsion();
     // if (detect_collision())
     camera_rotation_angle += 1;
 }
@@ -112,9 +211,15 @@ void initGL(GLFWwindow *window, int width, int height) {
 
     ball1  = Ball(-15, -9, COLOR_GREEN);
     ground = Ground(-20, -15, COLOR_BLACK);
+    wall = Wall(-20, 15,COLOR_BLACK);
+    balloon = Balloon(-100, -100, COLOR_BLACK);
     for (int i = 0; i < 100; i++) {
-        	coins[i] = Coin(1.0*(rand()%1000), 1.0*(rand()%10), COLOR_COIN);
+        coins[i] = Coin(1.0*(rand()%1000 - 20), 1.0*(rand()%10), COLOR_COIN);
     }
+    for (int i = 0; i < 20; i++){
+    	fire[i] = Fire(rand()%1000 - 20, rand()%10 - 5, 1.0f*(rand()%90) - 45.0f, COLOR_COIN);	
+    }
+    fire[0] = Fire(0.0f, 0.0f, 45.0f, COLOR_COIN);
     // Create and compile our GLSL program from the shaders
     programID = LoadShaders("Sample_GL.vert", "Sample_GL.frag");
     // Get a handle for our "MVP" uniform
@@ -161,7 +266,6 @@ int main(int argc, char **argv) {
             tick_elements();
             tick_input(window);
         }
-
         // Poll for Keyboard and mouse events
         glfwPollEvents();
     }

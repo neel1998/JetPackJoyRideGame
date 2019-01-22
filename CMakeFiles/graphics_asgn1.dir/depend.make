@@ -5,6 +5,10 @@ CMakeFiles/graphics_asgn1.dir/src/ball.cpp.o: src/ball.cpp
 CMakeFiles/graphics_asgn1.dir/src/ball.cpp.o: src/ball.h
 CMakeFiles/graphics_asgn1.dir/src/ball.cpp.o: src/main.h
 
+CMakeFiles/graphics_asgn1.dir/src/balloon.cpp.o: src/balloon.cpp
+CMakeFiles/graphics_asgn1.dir/src/balloon.cpp.o: src/balloon.h
+CMakeFiles/graphics_asgn1.dir/src/balloon.cpp.o: src/main.h
+
 CMakeFiles/graphics_asgn1.dir/src/coin.cpp.o: src/coin.cpp
 CMakeFiles/graphics_asgn1.dir/src/coin.cpp.o: src/coin.h
 CMakeFiles/graphics_asgn1.dir/src/coin.cpp.o: src/main.h
@@ -12,9 +16,9 @@ CMakeFiles/graphics_asgn1.dir/src/coin.cpp.o: src/main.h
 CMakeFiles/graphics_asgn1.dir/src/color.cpp.o: src/color.cpp
 CMakeFiles/graphics_asgn1.dir/src/color.cpp.o: src/main.h
 
-CMakeFiles/graphics_asgn1.dir/src/floor.cpp.o: src/floor.cpp
-CMakeFiles/graphics_asgn1.dir/src/floor.cpp.o: src/floor.h
-CMakeFiles/graphics_asgn1.dir/src/floor.cpp.o: src/main.h
+CMakeFiles/graphics_asgn1.dir/src/fire.cpp.o: src/fire.cpp
+CMakeFiles/graphics_asgn1.dir/src/fire.cpp.o: src/fire.h
+CMakeFiles/graphics_asgn1.dir/src/fire.cpp.o: src/main.h
 
 CMakeFiles/graphics_asgn1.dir/src/ground.cpp.o: src/ground.cpp
 CMakeFiles/graphics_asgn1.dir/src/ground.cpp.o: src/ground.h
@@ -24,12 +28,15 @@ CMakeFiles/graphics_asgn1.dir/src/input.cpp.o: src/input.cpp
 CMakeFiles/graphics_asgn1.dir/src/input.cpp.o: src/main.h
 
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/ball.h
+CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/balloon.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/coin.h
+CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/fire.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/ground.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/main.cpp
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/main.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/prop.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/timer.h
+CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/wall.h
 
 CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o: src/main.h
 CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o: src/nonedit.cpp
@@ -43,4 +50,8 @@ CMakeFiles/graphics_asgn1.dir/src/prop.cpp.o: src/prop.h
 
 CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o: src/timer.cpp
 CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o: src/timer.h
+
+CMakeFiles/graphics_asgn1.dir/src/wall.cpp.o: src/main.h
+CMakeFiles/graphics_asgn1.dir/src/wall.cpp.o: src/wall.cpp
+CMakeFiles/graphics_asgn1.dir/src/wall.cpp.o: src/wall.h
 

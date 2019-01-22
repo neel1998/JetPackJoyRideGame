@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/neel/IIIT/graphics/JetPackGame
+CMAKE_SOURCE_DIR = /home/neel/IIIT/graphics/JetPackJoyRideGame
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/neel/IIIT/graphics/JetPackGame
+CMAKE_BINARY_DIR = /home/neel/IIIT/graphics/JetPackJoyRideGame
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/neel/IIIT/graphics/JetPackGame/CMakeFiles /home/neel/IIIT/graphics/JetPackGame/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles /home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/neel/IIIT/graphics/JetPackGame/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -150,6 +150,33 @@ src/ball.cpp.s:
 	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/ball.cpp.s
 .PHONY : src/ball.cpp.s
 
+src/balloon.o: src/balloon.cpp.o
+
+.PHONY : src/balloon.o
+
+# target to build an object file
+src/balloon.cpp.o:
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/balloon.cpp.o
+.PHONY : src/balloon.cpp.o
+
+src/balloon.i: src/balloon.cpp.i
+
+.PHONY : src/balloon.i
+
+# target to preprocess a source file
+src/balloon.cpp.i:
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/balloon.cpp.i
+.PHONY : src/balloon.cpp.i
+
+src/balloon.s: src/balloon.cpp.s
+
+.PHONY : src/balloon.s
+
+# target to generate assembly for a file
+src/balloon.cpp.s:
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/balloon.cpp.s
+.PHONY : src/balloon.cpp.s
+
 src/coin.o: src/coin.cpp.o
 
 .PHONY : src/coin.o
@@ -204,32 +231,32 @@ src/color.cpp.s:
 	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/color.cpp.s
 .PHONY : src/color.cpp.s
 
-src/floor.o: src/floor.cpp.o
+src/fire.o: src/fire.cpp.o
 
-.PHONY : src/floor.o
+.PHONY : src/fire.o
 
 # target to build an object file
-src/floor.cpp.o:
-	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/floor.cpp.o
-.PHONY : src/floor.cpp.o
+src/fire.cpp.o:
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/fire.cpp.o
+.PHONY : src/fire.cpp.o
 
-src/floor.i: src/floor.cpp.i
+src/fire.i: src/fire.cpp.i
 
-.PHONY : src/floor.i
+.PHONY : src/fire.i
 
 # target to preprocess a source file
-src/floor.cpp.i:
-	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/floor.cpp.i
-.PHONY : src/floor.cpp.i
+src/fire.cpp.i:
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/fire.cpp.i
+.PHONY : src/fire.cpp.i
 
-src/floor.s: src/floor.cpp.s
+src/fire.s: src/fire.cpp.s
 
-.PHONY : src/floor.s
+.PHONY : src/fire.s
 
 # target to generate assembly for a file
-src/floor.cpp.s:
-	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/floor.cpp.s
-.PHONY : src/floor.cpp.s
+src/fire.cpp.s:
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/fire.cpp.s
+.PHONY : src/fire.cpp.s
 
 src/ground.o: src/ground.cpp.o
 
@@ -420,6 +447,33 @@ src/timer.cpp.s:
 	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/timer.cpp.s
 .PHONY : src/timer.cpp.s
 
+src/wall.o: src/wall.cpp.o
+
+.PHONY : src/wall.o
+
+# target to build an object file
+src/wall.cpp.o:
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/wall.cpp.o
+.PHONY : src/wall.cpp.o
+
+src/wall.i: src/wall.cpp.i
+
+.PHONY : src/wall.i
+
+# target to preprocess a source file
+src/wall.cpp.i:
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/wall.cpp.i
+.PHONY : src/wall.cpp.i
+
+src/wall.s: src/wall.cpp.s
+
+.PHONY : src/wall.s
+
+# target to generate assembly for a file
+src/wall.cpp.s:
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/wall.cpp.s
+.PHONY : src/wall.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -432,15 +486,18 @@ help:
 	@echo "... src/ball.o"
 	@echo "... src/ball.i"
 	@echo "... src/ball.s"
+	@echo "... src/balloon.o"
+	@echo "... src/balloon.i"
+	@echo "... src/balloon.s"
 	@echo "... src/coin.o"
 	@echo "... src/coin.i"
 	@echo "... src/coin.s"
 	@echo "... src/color.o"
 	@echo "... src/color.i"
 	@echo "... src/color.s"
-	@echo "... src/floor.o"
-	@echo "... src/floor.i"
-	@echo "... src/floor.s"
+	@echo "... src/fire.o"
+	@echo "... src/fire.i"
+	@echo "... src/fire.s"
 	@echo "... src/ground.o"
 	@echo "... src/ground.i"
 	@echo "... src/ground.s"
@@ -462,6 +519,9 @@ help:
 	@echo "... src/timer.o"
 	@echo "... src/timer.i"
 	@echo "... src/timer.s"
+	@echo "... src/wall.o"
+	@echo "... src/wall.i"
+	@echo "... src/wall.s"
 .PHONY : help
 
 

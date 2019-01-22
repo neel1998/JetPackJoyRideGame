@@ -4,17 +4,19 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/neel/IIIT/graphics/JetPackGame/src/ball.cpp" "/home/neel/IIIT/graphics/JetPackGame/CMakeFiles/graphics_asgn1.dir/src/ball.cpp.o"
-  "/home/neel/IIIT/graphics/JetPackGame/src/coin.cpp" "/home/neel/IIIT/graphics/JetPackGame/CMakeFiles/graphics_asgn1.dir/src/coin.cpp.o"
-  "/home/neel/IIIT/graphics/JetPackGame/src/color.cpp" "/home/neel/IIIT/graphics/JetPackGame/CMakeFiles/graphics_asgn1.dir/src/color.cpp.o"
-  "/home/neel/IIIT/graphics/JetPackGame/src/floor.cpp" "/home/neel/IIIT/graphics/JetPackGame/CMakeFiles/graphics_asgn1.dir/src/floor.cpp.o"
-  "/home/neel/IIIT/graphics/JetPackGame/src/ground.cpp" "/home/neel/IIIT/graphics/JetPackGame/CMakeFiles/graphics_asgn1.dir/src/ground.cpp.o"
-  "/home/neel/IIIT/graphics/JetPackGame/src/input.cpp" "/home/neel/IIIT/graphics/JetPackGame/CMakeFiles/graphics_asgn1.dir/src/input.cpp.o"
-  "/home/neel/IIIT/graphics/JetPackGame/src/main.cpp" "/home/neel/IIIT/graphics/JetPackGame/CMakeFiles/graphics_asgn1.dir/src/main.cpp.o"
-  "/home/neel/IIIT/graphics/JetPackGame/src/nonedit.cpp" "/home/neel/IIIT/graphics/JetPackGame/CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o"
-  "/home/neel/IIIT/graphics/JetPackGame/src/other_handlers.cpp" "/home/neel/IIIT/graphics/JetPackGame/CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o"
-  "/home/neel/IIIT/graphics/JetPackGame/src/prop.cpp" "/home/neel/IIIT/graphics/JetPackGame/CMakeFiles/graphics_asgn1.dir/src/prop.cpp.o"
-  "/home/neel/IIIT/graphics/JetPackGame/src/timer.cpp" "/home/neel/IIIT/graphics/JetPackGame/CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o"
+  "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/ball.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/ball.cpp.o"
+  "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/balloon.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/balloon.cpp.o"
+  "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/coin.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/coin.cpp.o"
+  "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/color.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/color.cpp.o"
+  "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/fire.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/fire.cpp.o"
+  "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/ground.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/ground.cpp.o"
+  "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/input.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/input.cpp.o"
+  "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/main.cpp.o"
+  "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/nonedit.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o"
+  "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/other_handlers.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o"
+  "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/prop.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/prop.cpp.o"
+  "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/timer.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o"
+  "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/wall.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/wall.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

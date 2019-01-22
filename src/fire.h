@@ -1,13 +1,13 @@
 #include "main.h"
 
-#ifndef COIN_H
-#define COIN_H
+#ifndef FIRE_H
+#define FIRE_H
 
 
-class Coin {
+class Fire {
 public:
-    Coin() {}
-    Coin(float x, float y, color_t color);
+    Fire() {}
+    Fire(float x, float y, float angle, color_t color);
     glm::vec3 position;
     float rotation;
     void draw(glm::mat4 VP);
