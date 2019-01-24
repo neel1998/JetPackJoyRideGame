@@ -117,6 +117,8 @@ boom.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/boom.h
 power.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/power.h
+score.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/score.h
 
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
 iostream
@@ -199,6 +201,16 @@ main.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
 
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/prop.h
+main.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
+
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/score.cpp
+score.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/score.h
+main.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
+
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/score.h
 main.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
 

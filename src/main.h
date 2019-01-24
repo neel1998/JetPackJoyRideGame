@@ -40,6 +40,7 @@ void quit(GLFWwindow *window);
 void reshapeWindow(GLFWwindow *window, int width, int height);
 void propulsion();
 void checkCoinCollision();
+void writeScore(int unit, int dec, int hund );
 
 // Types
 struct VAO {

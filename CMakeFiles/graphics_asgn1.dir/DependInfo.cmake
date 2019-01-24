@@ -17,6 +17,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/other_handlers.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o"
   "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/power.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/power.cpp.o"
   "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/prop.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/prop.cpp.o"
+  "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/score.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/score.cpp.o"
   "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/timer.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o"
   "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/wall.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/wall.cpp.o"
   )

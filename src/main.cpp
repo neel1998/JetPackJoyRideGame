@@ -10,6 +10,7 @@
 #include "fire.h"
 #include "boom.h"
 #include "power.h"
+#include "score.h"
 using namespace std;
 
 GLMatrices Matrices;
@@ -35,7 +36,7 @@ int isBoom = 0;
 int isPower2 = 0;
 float screen_zoom = 1, screen_center_x = 0, screen_center_y = 0;
 float camera_rotation_angle = 0;
-
+vector < Score > score;
 Timer t60(1.0 / 60);
 
 /* Render the scene with openGL */
@@ -74,7 +75,7 @@ void draw() {
     ball1.draw(VP);
     ground.draw(VP);
     wall.draw(VP);
-    if (!boom.collided){
+    if (!boom.collided && ball1.stage == 2){
     	boom.draw(VP);
     }
     if (!power.collided){
@@ -98,6 +99,9 @@ void draw() {
    	}
    	for (int i = 0; i < prop.size(); i++){
    		prop[i].draw(VP);
+   	}
+   	for (int i = 0; i < score.size(); i ++){
+   		score[i].draw(VP);
    	}
 }
 
@@ -187,6 +191,8 @@ void tick_input(GLFWwindow *window) {
 }
 
 void tick_elements() {
+	int c = ball1.coins;
+	writeScore(c%10, (c/10)%10, (c/100)%10);
 	printf("%d\n",ball1.stage);
 	if (ball1.score >= 600) {
 		ball1.stage = 2;
@@ -300,20 +306,61 @@ void tick_elements() {
    	}
     camera_rotation_angle += 1;
 }
+void writeScore(int unit, int dec, int hund ){
+	score.clear();
+	Score s;
+	int numb[] = {hund, dec, unit};
+	for (int i = 0; i < 3; i++){
+		if (numb[i] != 5 && numb[i] != 6){
+			s = Score(-2 +0 + (i+1)*1.5 , 1 + 15, COLOR_RED); // right top
+	    	score.push_back(s);
+		}
+		if ( numb[i] != 2){
+			Score s = Score(-2 +0 + (i+1)*1.5, 0 + 15, COLOR_RED); //right bottom
+	    	score.push_back(s);
+		}
+
+		if ( numb[i] != 1 && numb[i] != 2 && numb[i] != 7  && numb[i] != 3){
+			s = Score(-2 +-1 + (i+1)*1.5, 1 + 15, COLOR_RED); // left top
+	    	score.push_back(s);
+		}
+	    if ( numb[i] == 2 || numb[i] == 8 || numb[i] == 6 || numb[i] == 0 ){
+			s = Score(-2 +-1 + (i+1)*1.5, 0 + 15, COLOR_RED); // left bottom
+	    	score.push_back(s);
+		}
+	    if ( numb[i] != 1 && numb[i] != 7 && numb[i] != 0){
+			s = Score(-2 +-0.5 + (i+1)*1.5, 0.5f + 15, COLOR_RED); //middle
+	    	s.rotation = 90;
+	   	 	score.push_back(s);
+		}
+		if ( numb[i] != 1 && numb[i] != 4 ){
+			s = Score(-2 +-0.5 + (i+1)*1.5, 1.5f + 15, COLOR_RED); // top
+	    	s.rotation = 90;
+	    	score.push_back(s);
+		}
+	    if ( numb[i] != 1 && numb[i] != 7  && numb[i] != 4){
+			s = Score(-2 +-0.5 + (i+1)*1.5, -0.5f + 15, COLOR_RED); //bottom
+	    	s.rotation = 90;
+	    	score.push_back(s);
+		}    
+	    	        
+	}
+}
 
 /* Initialize the OpenGL rendering properties */
 /* Add all the models to be created here */
 void initGL(GLFWwindow *window, int width, int height) {
     /* Objects should be created before any other gl function and shaders */
     // Create the models
-
+	
     ball1  = Ball(-15, -9, COLOR_GREEN);
     ground = Ground(-20, -15, COLOR_BLACK);
     wall = Wall(-20, 15,COLOR_BLACK);
     balloon = Balloon(-100, -100, COLOR_BLACK);
     boom = Boom(-1000, -1000, COLOR_RED);
     power = Power(-1000, -1000, COLOR_POWER2, 2);
-
+    
+    
     for (int i = 0; i < 100; i++) {
     	if (rand()%10 < 7){
         	coins[i] = Coin(1.0*(rand()%1000 - 20), 1.0*(rand()%10), COLOR_COIN, 1);
