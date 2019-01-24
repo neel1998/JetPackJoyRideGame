@@ -11,6 +11,7 @@
 #include "boom.h"
 #include "power.h"
 #include "score.h"
+#include "magnet.h"
 using namespace std;
 
 GLMatrices Matrices;
@@ -30,10 +31,13 @@ Ground ground;
 Wall wall;
 Coin coins[100];
 Balloon balloon;
+Magnet magnet;
 glm::mat4 VP;
 int shoot = 1;
 int isBoom = 0;
 int isPower2 = 0;
+int isMag = 0;
+int magCount = 0;
 float screen_zoom = 1, screen_center_x = 0, screen_center_y = 0;
 float camera_rotation_angle = 0;
 vector < Score > score;
@@ -103,6 +107,7 @@ void draw() {
    	for (int i = 0; i < score.size(); i ++){
    		score[i].draw(VP);
    	}
+   	magnet.draw(VP);
 }
 
 void tick_input(GLFWwindow *window) {
@@ -125,6 +130,7 @@ void tick_input(GLFWwindow *window) {
     			fire[i].tick(-1);
     		}
         	ball1.moveL();
+            magnet.tick(-1);
     	}
     	else if(ball1.position.x < -18.0f ) {
     		for (int i = 0; i < 100; i++) {
@@ -137,6 +143,7 @@ void tick_input(GLFWwindow *window) {
     		for (int i = 0; i < total_fire; i++){
     			fire[i].tick(-1);
     		}
+            magnet.tick(-1);
     	}
     	else {
         	ball1.moveL();
@@ -155,6 +162,7 @@ void tick_input(GLFWwindow *window) {
     		for (int i = 0; i < total_fire; i++){
     			fire[i].tick(1);
     		}
+            magnet.tick(1);
     	}
     	if (ball1.position.x > 20){
     		ball1.set_position(0.0f, ball1.position.y);
@@ -168,7 +176,8 @@ void tick_input(GLFWwindow *window) {
     		for (int i = 0; i < total_fire; i++){
     			fire[i].tick(100);
     		}	
-    	}
+            magnet.tick(100);
+        }
     	ball1.moveR();
     }
     if (up){
@@ -191,16 +200,58 @@ void tick_input(GLFWwindow *window) {
 }
 
 void tick_elements() {
+    if (isMag) {
+        if (magnet.type == 1){
+            if (ball1.position.x > magnet.position.x + 1.0f){
+                ball1.gravity = 0;
+                // float angle = (ball1.position.y - magnet.position.y)/(ball1.position.x - magnet.position.x);
+                ball1.position.x -= 0.1f;
+                // ball1.position.y =
+                if (ball1.position.y > 0){
+                    ball1.position.y -= 0.1f;
+                }
+                else{
+                    ball1.position.y += 0.1f;
+                }
+            }
+            else if (ball1.position.x == magnet.position.x + 1.0f && ball1.position.y == 0){
+                ball1.position.x = magnet.position.x + 1.0f;
+                ball1.position.y = 0;
+            }
+            else{
+                ball1.gravity = 1;
+            }
+        }
+        else{
+            if (ball1.position.x < magnet.position.x - 1.0f ){
+                ball1.gravity = 0;
+                // float angle = (ball1.position.y - magnet.position.y)/(ball1.position.x - magnet.position.x);
+                ball1.position.x += 0.1f;
+                // ball1.position.y =
+                if (ball1.position.y > 0){
+                    ball1.position.y -= 0.1f;
+                }
+                else{
+                    ball1.position.y += 0.1f;
+                }
+            }
+            else if (ball1.position.x == magnet.position.x + 1.0f && ball1.position.y == 0){
+                ball1.position.x = magnet.position.x - 1.0f;
+                ball1.position.y = 0;
+            }
+            else{
+                ball1.gravity = 1;
+            }
+        }
+    }
 	int c = ball1.coins;
 	writeScore(c%10, (c/10)%10, (c/100)%10);
-	printf("%d\n",ball1.stage);
-	if (ball1.score >= 600) {
+	if (ball1.coins >= 40) {
 		ball1.stage = 2;
 	}
     if (ball1.health < 0) {
-    	printf("----------GAME OVER-----------\n");
+    	printf("=========== GAME OVER =========\n");
     	printf("COINS = %d\n",ball1.coins);
-    	printf("SCORE = %d\n",ball1.score);
     	quit(window);
     }
 	power.tick();
@@ -208,17 +259,13 @@ void tick_elements() {
     	if (detect_collision(ball1.bounding_box, coins[i].bounding_box) && !coins[i].collided) {
        		coins[i].collided = true;
        		ball1.coins += coins[i].type;
-       		printf("%d\n",ball1.coins );
     	}
    	}
-    // printf("ball 1 x = %f ball 2 x=%f\n", ball1.position.x, ball2.position.x);
+    
     ball1.tick();
     ground.tick();
     wall.tick();
-    // propulsion();
-  //   for (int i =0 ;i < 5; i++){
-		// prop[i].tick();
-  //   }
+   
     if (isBoom && boom.position.y > -15.0f){
     	boom.tick();
     }else{
@@ -230,11 +277,19 @@ void tick_elements() {
     else{
     	isPower2 = 0;
     }
+    if(isMag){
+    	magCount ++;
+        if (magCount >= 500){
+            magCount = 0;
+            isMag = 0;
+            ball1.gravity = 1;
+            magnet.position.x = -1000;
+        }
+    }
     if (rand()%(497) == 0 && isBoom == 0 && ball1.stage == 2){
     	boom = Boom(15, 20, COLOR_RED);
     	isBoom = 1;
     } 
-
     if (rand()%(497) == 0 && isPower2 == 0){
     	if (rand()%10 > 5){
     		power = Power(20, 0, COLOR_POWER2, 2);
@@ -243,6 +298,16 @@ void tick_elements() {
     		power = Power(20, 0, COLOR_POWER1, 1);
     	}
     	isPower2 = 1;
+    }
+
+    if (rand()%(497) == 0 && isMag == 0){
+    	if (rand()%10 > 5){
+    		magnet = Magnet(0, 0, COLOR_BLACK, 2);
+    	}
+    	else{
+    		magnet = Magnet(0, 0, COLOR_BLACK, 1);
+    	}
+    	isMag = 1;
     }
     if (detect_collision(ball1.bounding_box, boom.bounding_box) && isBoom == 1) {
     	printf("dead\n");
@@ -360,6 +425,7 @@ void initGL(GLFWwindow *window, int width, int height) {
     boom = Boom(-1000, -1000, COLOR_RED);
     power = Power(-1000, -1000, COLOR_POWER2, 2);
     
+    magnet = Magnet(-1000, -1000, COLOR_BLACK, 1);
     
     for (int i = 0; i < 100; i++) {
     	if (rand()%10 < 7){

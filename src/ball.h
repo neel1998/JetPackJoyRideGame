@@ -21,8 +21,8 @@ public:
     bounding_box_t bounding_box;
     int coins;
     int health;
-    int score;
     int stage;
+    int gravity;
 private:
     VAO *object;
 };

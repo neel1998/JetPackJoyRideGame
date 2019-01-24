@@ -11,7 +11,6 @@ Ball::Ball(float x, float y, color_t color) {
     this->bounding_box.width = 2.0f;
     this->coins = 0;
     this->health = 5;
-    this->score = 0;
     this->stage = 1;
     // Our vertices. Three consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
     // A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
@@ -24,7 +23,7 @@ Ball::Ball(float x, float y, color_t color) {
          1.0f, -1.0f,0.0f, // triangle 2 : end
         
     };
-
+    this->gravity = 1;
     this->object = create3DObject(GL_TRIANGLES, 18, vertex_buffer_data, color, GL_FILL);
 }
 
@@ -48,17 +47,18 @@ void Ball::set_position(float x, float y) {
 }
 
 void Ball::tick() {
-	this->score ++;
     // this->rotation += speed;
     // this->position.x += speed/100;
     // this->position.y += speed/500;
-    float temp = this->position.y - (speed+= 0.03);
-    if (temp > -9){
-    	this->bounding_box.y =  this->position.y = temp;
-    }
-    else{
-    	this->bounding_box.y =  this->position.y = -9.0f;	
-    }
+    if (this->gravity){
+	    float temp = this->position.y - (speed += 0.03);
+	    if (temp > -9){
+	    	this->bounding_box.y =  this->position.y = temp;
+	    }
+	    else{
+	    	this->bounding_box.y =  this->position.y = -9.0f;	
+	    }
+	}
 }
 
 void Ball::moveL() {

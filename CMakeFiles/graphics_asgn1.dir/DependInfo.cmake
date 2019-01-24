@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/fire.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/fire.cpp.o"
   "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/ground.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/ground.cpp.o"
   "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/input.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/input.cpp.o"
+  "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/magnet.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o"
   "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/main.cpp.o"
   "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/nonedit.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o"
   "/home/neel/IIIT/graphics/JetPackJoyRideGame/src/other_handlers.cpp" "/home/neel/IIIT/graphics/JetPackJoyRideGame/CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o"

@@ -92,6 +92,16 @@ glm/gtc/matrix_transform.hpp
 main.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
 
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/magnet.cpp
+magnet.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/magnet.h
+main.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
+
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/magnet.h
+main.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
+
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.cpp
 main.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
@@ -119,6 +129,8 @@ power.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/power.h
 score.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/score.h
+magnet.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/magnet.h
 
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
 iostream
