@@ -9,6 +9,10 @@ CMakeFiles/graphics_asgn1.dir/src/balloon.cpp.o: src/balloon.cpp
 CMakeFiles/graphics_asgn1.dir/src/balloon.cpp.o: src/balloon.h
 CMakeFiles/graphics_asgn1.dir/src/balloon.cpp.o: src/main.h
 
+CMakeFiles/graphics_asgn1.dir/src/boom.cpp.o: src/boom.cpp
+CMakeFiles/graphics_asgn1.dir/src/boom.cpp.o: src/boom.h
+CMakeFiles/graphics_asgn1.dir/src/boom.cpp.o: src/main.h
+
 CMakeFiles/graphics_asgn1.dir/src/coin.cpp.o: src/coin.cpp
 CMakeFiles/graphics_asgn1.dir/src/coin.cpp.o: src/coin.h
 CMakeFiles/graphics_asgn1.dir/src/coin.cpp.o: src/main.h
@@ -29,11 +33,13 @@ CMakeFiles/graphics_asgn1.dir/src/input.cpp.o: src/main.h
 
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/ball.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/balloon.h
+CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/boom.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/coin.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/fire.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/ground.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/main.cpp
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/main.h
+CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/power.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/prop.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/timer.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/wall.h
@@ -43,6 +49,11 @@ CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o: src/nonedit.cpp
 
 CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o: src/main.h
 CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o: src/other_handlers.cpp
+
+CMakeFiles/graphics_asgn1.dir/src/power.cpp.o: src/coin.h
+CMakeFiles/graphics_asgn1.dir/src/power.cpp.o: src/main.h
+CMakeFiles/graphics_asgn1.dir/src/power.cpp.o: src/power.cpp
+CMakeFiles/graphics_asgn1.dir/src/power.cpp.o: src/power.h
 
 CMakeFiles/graphics_asgn1.dir/src/prop.cpp.o: src/main.h
 CMakeFiles/graphics_asgn1.dir/src/prop.cpp.o: src/prop.cpp

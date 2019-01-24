@@ -19,6 +19,10 @@ public:
     void jump();
     double speed;
     bounding_box_t bounding_box;
+    int coins;
+    int health;
+    int score;
+    int stage;
 private:
     VAO *object;
 };

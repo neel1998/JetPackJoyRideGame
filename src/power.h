@@ -1,19 +1,21 @@
 #include "main.h"
 
-#ifndef PROP_H
-#define PROP_H
+#ifndef POWER_H
+#define POWER_H
 
 
-class Prop {
+class Power {
 public:
-    Prop() {}
-    Prop(float x, float y, color_t color);
+    Power() {}
+    Power(float x, float y, color_t color, int type);
     glm::vec3 position;
-    int Ptime;
     float rotation;
     void draw(glm::mat4 VP);
     void set_position(float x, float y);
     void tick();
+    bounding_box_t bounding_box;
+    bool collided;
+    int type;
 private:
     VAO *object;
 };

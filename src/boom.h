@@ -1,19 +1,21 @@
 #include "main.h"
 
-#ifndef PROP_H
-#define PROP_H
+#ifndef BOOM_H
+#define BOOM_H
 
 
-class Prop {
+class Boom {
 public:
-    Prop() {}
-    Prop(float x, float y, color_t color);
+    Boom() {}
+    Boom(float x, float y, color_t color);
     glm::vec3 position;
-    int Ptime;
     float rotation;
     void draw(glm::mat4 VP);
     void set_position(float x, float y);
     void tick();
+    void move();
+    bounding_box_t bounding_box;
+    bool collided;
 private:
     VAO *object;
 };

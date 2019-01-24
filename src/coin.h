@@ -7,7 +7,7 @@
 class Coin {
 public:
     Coin() {}
-    Coin(float x, float y, color_t color);
+    Coin(float x, float y, color_t color, int type);
     glm::vec3 position;
     float rotation;
     void draw(glm::mat4 VP);
@@ -15,6 +15,7 @@ public:
     void tick(int dir);
     bounding_box_t bounding_box;
     bool collided;
+    int type;
 private:
     VAO *object;
 };

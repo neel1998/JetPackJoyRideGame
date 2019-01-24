@@ -8,6 +8,8 @@
 #include "balloon.h"
 #include <cstdlib>
 #include "fire.h"
+#include "boom.h"
+#include "power.h"
 using namespace std;
 
 GLMatrices Matrices;
@@ -17,15 +19,20 @@ GLFWwindow *window;
 /**************************
 * Customizable functions *
 **************************/
-Fire fire[20];
+int total_fire = 30;
+vector < Prop > prop;
+Fire fire[30];
 Ball ball1;
+Boom boom;
+Power power;
 Ground ground;
 Wall wall;
 Coin coins[100];
 Balloon balloon;
-Prop prop[10];
 glm::mat4 VP;
 int shoot = 1;
+int isBoom = 0;
+int isPower2 = 0;
 float screen_zoom = 1, screen_center_x = 0, screen_center_y = 0;
 float camera_rotation_angle = 0;
 
@@ -67,6 +74,12 @@ void draw() {
     ball1.draw(VP);
     ground.draw(VP);
     wall.draw(VP);
+    if (!boom.collided){
+    	boom.draw(VP);
+    }
+    if (!power.collided){
+    	power.draw(VP);
+    }
     for (int i = 0; i < 100; i++) {
         if (!coins[i].collided){
     	   coins[i].draw(VP);
@@ -78,10 +91,13 @@ void draw() {
     // 	}
     // }
    	balloon.draw(VP);
-   	for (int i = 0; i < 20 ; i++){
+   	for (int i = 0; i < total_fire ; i++){
    		if (!fire[i].collided){
    			fire[i].draw(VP);
    		}
+   	}
+   	for (int i = 0; i < prop.size(); i++){
+   		prop[i].draw(VP);
    	}
 }
 
@@ -93,74 +109,152 @@ void tick_input(GLFWwindow *window) {
     int space = glfwGetKey(window, GLFW_KEY_SPACE);
     if (left) {
         // Do something
-        if (ball1.position.x > 0 && ball1.position.x < 20){
+        if (ball1.position.x > 0){
        		for (int i = 0; i < 100; i++) {
-        		if (detect_collision(ball1.bounding_box, coins[i].bounding_box)) {
-            		coins[i].collided = true;
-        		}
+        		// if (detect_collision(ball1.bounding_box, coins[i].bounding_box)) {
+          //   		coins[i].collided = true;
+          //   		ball1.coins ++;
+        		// }
     			coins[i].tick(-1);
     		}
-    		for (int i = 0; i < 20; i++){
+    		for (int i = 0; i < total_fire; i++){
+    			fire[i].tick(-1);
+    		}
+        	ball1.moveL();
+    	}
+    	else if(ball1.position.x < -18.0f ) {
+    		for (int i = 0; i < 100; i++) {
+        		// if (detect_collision(ball1.bounding_box, coins[i].bounding_box)) {
+          //   		coins[i].collided = true;
+          //   		ball1.coins ++;
+        		// }
+    			coins[i].tick(-1);
+    		}
+    		for (int i = 0; i < total_fire; i++){
     			fire[i].tick(-1);
     		}
     	}
+    	else {
+        	ball1.moveL();
+    	}
     	
-        ball1.moveL();
     }
     if (right){
         if (ball1.position.x > 0 && ball1.position.x < 20){
     		for (int i = 0; i < 100; i++) {
-        		if (detect_collision(ball1.bounding_box, coins[i].bounding_box)) {
-            		coins[i].collided = true;
-        		}
+        		// if (detect_collision(ball1.bounding_box, coins[i].bounding_box)) {
+          //   		coins[i].collided = true;
+          //   		ball1.coins ++;
+        		// }
     			coins[i].tick(1);
     		}
-    		for (int i = 0; i < 20; i++){
+    		for (int i = 0; i < total_fire; i++){
     			fire[i].tick(1);
     		}
     	}
     	if (ball1.position.x > 20){
     		ball1.set_position(0.0f, ball1.position.y);
     		for (int i = 0; i < 100; i++) {
-        		if (detect_collision(ball1.bounding_box, coins[i].bounding_box)) {
-            		coins[i].collided = true;
-        		}
+        		// if (detect_collision(ball1.bounding_box, coins[i].bounding_box)) {
+          //   		coins[i].collided = true;
+          //   		ball1.coins ++;
+        		// }
     			coins[i].tick(100);
     		}
-    		for (int i = 0; i < 20; i++){
+    		for (int i = 0; i < total_fire; i++){
     			fire[i].tick(100);
     		}	
     	}
     	ball1.moveR();
     }
     if (up){
+    	
+    	float x = ball1.position.x + (rand()%2 - 1)*1.0f;
+    	float y = ball1.position.y  - (rand()%2 + 1.0f);
+    	prop.push_back(Prop(x, y, COLOR_RED));
+
+    	x = ball1.position.x + (rand()%2 - 1)*1.0f;
+    	y = ball1.position.y  - (rand()%2 + 1.0f);
+    	prop.push_back(Prop(x, y, COLOR_RED));
     	ball1.jump();
     	// propulsion();
     }
     if(space && shoot){
-    	balloon = Balloon(ball1.position.x, ball1.position.y, COLOR_BLACK);
+    	balloon = Balloon(ball1.position.x, ball1.position.y, COLOR_BALLOON);
     	shoot = 0;
     }
 
 }
-void propulsion() {
-	for (int i = 0; i < 5; i ++){
-		float dir;
-		if (i%2) {
-			dir = -1;
-		}
-		else{
-			dir = 1;
-		}
-		prop[i] = Prop( ball1.position.x + dir, ball1.position.y - i - 1 , COLOR_RED );
-	}
-}
+
 void tick_elements() {
-    
+	printf("%d\n",ball1.stage);
+	if (ball1.score >= 600) {
+		ball1.stage = 2;
+	}
+    if (ball1.health < 0) {
+    	printf("----------GAME OVER-----------\n");
+    	printf("COINS = %d\n",ball1.coins);
+    	printf("SCORE = %d\n",ball1.score);
+    	quit(window);
+    }
+	power.tick();
+    for (int i = 0; i < 100; i++) {
+    	if (detect_collision(ball1.bounding_box, coins[i].bounding_box) && !coins[i].collided) {
+       		coins[i].collided = true;
+       		ball1.coins += coins[i].type;
+       		printf("%d\n",ball1.coins );
+    	}
+   	}
     // printf("ball 1 x = %f ball 2 x=%f\n", ball1.position.x, ball2.position.x);
     ball1.tick();
     ground.tick();
     wall.tick();
+    // propulsion();
+  //   for (int i =0 ;i < 5; i++){
+		// prop[i].tick();
+  //   }
+    if (isBoom && boom.position.y > -15.0f){
+    	boom.tick();
+    }else{
+    	isBoom = 0;
+    }
+    if (isPower2 && power.position.x > -20.f){
+    	power.tick();
+    }
+    else{
+    	isPower2 = 0;
+    }
+    if (rand()%(497) == 0 && isBoom == 0 && ball1.stage == 2){
+    	boom = Boom(15, 20, COLOR_RED);
+    	isBoom = 1;
+    } 
+
+    if (rand()%(497) == 0 && isPower2 == 0){
+    	if (rand()%10 > 5){
+    		power = Power(20, 0, COLOR_POWER2, 2);
+    	}
+    	else{
+    		power = Power(20, 0, COLOR_POWER1, 1);
+    	}
+    	isPower2 = 1;
+    }
+    if (detect_collision(ball1.bounding_box, boom.bounding_box) && isBoom == 1) {
+    	printf("dead\n");
+    	isBoom = 0;
+    	ball1.health --;
+    	boom.collided = true;
+    }
+    if (detect_collision(ball1.bounding_box, power.bounding_box) && isPower2 == 1) {
+    	printf("power Up\n");
+    	isPower2 = 0;
+    	power.collided = true;
+    	if (power.type == 1){
+    		ball1.coins += 10;
+    	}
+    	else{
+    		ball1.health ++;
+    	}
+    }
     for (int i = 0; i < 100; i++) {
     	if (detect_collision(ball1.bounding_box, coins[i].bounding_box)) {
        		coins[i].collided = true;
@@ -172,34 +266,38 @@ void tick_elements() {
     	shoot = 1;
     }
     else {
-    	for (int i = 0; i < 20; i ++) {
+    	for (int i = 0; i < total_fire; i ++) {
     		// int i = 0;
-    		float dist1 = sqrt( pow(balloon.position.x - fire[i].position.x - 3*cos(fire[i].rotation * M_PI / 180.0f),2) + pow(balloon.position.y - fire[i].position.y - 3*sin(fire[i].rotation * M_PI / 180.0f) ,2) ); 
-    		float dist2 = sqrt( pow(balloon.position.x - fire[i].position.x + 3*cos(fire[i].rotation * M_PI / 180.0f),2) + pow(balloon.position.y - fire[i].position.y + 3*sin(fire[i].rotation * M_PI / 180.0f) ,2) );
-    		// printf("%d : %.2f\n",i,dist1 + dist2 );
-    		if (abs(dist1 + dist2 - 6.0f) <= 0.05f){
-    			// printf("collided\n");
-    			fire[i].collided = true;
-    			balloon.position.x = 1000;
-    			balloon.position.y = 1000;
-    			shoot = 1;			
-    		}
-    		
-    	}
+    		if (!fire[i].collided) {
+    			float dist1 = sqrt( pow(balloon.position.x - fire[i].position.x - 3*cos(fire[i].rotation * M_PI / 180.0f),2) + pow(balloon.position.y - fire[i].position.y - 3*sin(fire[i].rotation * M_PI / 180.0f) ,2) ); 
+    			float dist2 = sqrt( pow(balloon.position.x - fire[i].position.x + 3*cos(fire[i].rotation * M_PI / 180.0f),2) + pow(balloon.position.y - fire[i].position.y + 3*sin(fire[i].rotation * M_PI / 180.0f) ,2) );
+	    		if (abs(dist1 + dist2 - 6.0f) <= 0.05f && !fire[i].collided){
+    				fire[i].collided = true;
+    				balloon.position.x = 1000;
+    				balloon.position.y = 1000;
+    				shoot = 1;
+    						
+    			}
+	    	}
+	    }
     }
-    for (int i = 0; i < 20; i ++) {
-   		float dist1 = sqrt( pow(ball1.position.x - fire[i].position.x - 3*cos(fire[i].rotation * M_PI / 180.0f),2) + pow(ball1.position.y - fire[i].position.y - 3*sin(fire[i].rotation * M_PI / 180.0f) ,2) ); 
-    	float dist2 = sqrt( pow(ball1.position.x - fire[i].position.x + 3*cos(fire[i].rotation * M_PI / 180.0f),2) + pow(ball1.position.y - fire[i].position.y + 3*sin(fire[i].rotation * M_PI / 180.0f) ,2) );
-    	if ( abs(dist1 + dist2 - 6.0f) <= 0.05f) {
-    		ball1.position.x = -10.0f;
+    for (int i = 0; i < total_fire; i ++) {
+    	if (!fire[i].collided) {
+   			float dist1 = sqrt( pow(ball1.position.x - fire[i].position.x - 3*cos(fire[i].rotation * M_PI / 180.0f),2) + pow(ball1.position.y - fire[i].position.y - 3*sin(fire[i].rotation * M_PI / 180.0f) ,2) ); 
+    		float dist2 = sqrt( pow(ball1.position.x - fire[i].position.x + 3*cos(fire[i].rotation * M_PI / 180.0f),2) + pow(ball1.position.y - fire[i].position.y + 3*sin(fire[i].rotation * M_PI / 180.0f) ,2) );
+    		if ( abs(dist1 + dist2 - 6.0f) <= 0.05f) {
+    			ball1.position.x = -18.0f;
+    			ball1.health --;	
+    		}
     	}
     }
 	balloon.tick();
-    // for (int i = 0; i < 5; i++){
-    // 	prop[i].tick();
-    // }
-    // propulsion();
-    // if (detect_collision())
+	for (int i = 0; i < 20 ; i++){
+		fire[i].move();
+	}
+   	for (int i =0 ;i < prop.size(); i++){
+   		prop[i].tick();
+   	}
     camera_rotation_angle += 1;
 }
 
@@ -213,13 +311,25 @@ void initGL(GLFWwindow *window, int width, int height) {
     ground = Ground(-20, -15, COLOR_BLACK);
     wall = Wall(-20, 15,COLOR_BLACK);
     balloon = Balloon(-100, -100, COLOR_BLACK);
+    boom = Boom(-1000, -1000, COLOR_RED);
+    power = Power(-1000, -1000, COLOR_POWER2, 2);
+
     for (int i = 0; i < 100; i++) {
-        coins[i] = Coin(1.0*(rand()%1000 - 20), 1.0*(rand()%10), COLOR_COIN);
+    	if (rand()%10 < 7){
+        	coins[i] = Coin(1.0*(rand()%1000 - 20), 1.0*(rand()%10), COLOR_COIN, 1);
+        }
+        else{
+        	coins[i] = Coin(1.0*(rand()%1000 - 20), 1.0*(rand()%10), COLOR_COIN2, 2);	
+        }
     }
-    for (int i = 0; i < 20; i++){
-    	fire[i] = Fire(rand()%1000 - 20, rand()%10 - 5, 1.0f*(rand()%90) - 45.0f, COLOR_COIN);	
+    for (int i = 0; i < total_fire; i++){
+    	fire[i] = Fire(rand()%1000 - 20, rand()%10 - 5, 1.0f*(rand()%90) - 45.0f, COLOR_FIRE, 0.0f, false);	
     }
-    fire[0] = Fire(0.0f, 0.0f, 45.0f, COLOR_COIN);
+    for (int i = 0; i < 10; i+=2){
+    	fire[i] = Fire(i*80.0f, 0.0f, 0.0f, COLOR_FIRE, 0.1f, true);
+    	fire[i + 1] = Fire(i*80.0f, -2.0f, 0.0f, COLOR_FIRE, 0.1f, false);
+    }
+
     // Create and compile our GLSL program from the shaders
     programID = LoadShaders("Sample_GL.vert", "Sample_GL.frag");
     // Get a handle for our "MVP" uniform

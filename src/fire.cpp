@@ -1,21 +1,25 @@
 #include "fire.h"
 #include "main.h"
 
-Fire::Fire(float x, float y, float angle, color_t color) {
+Fire::Fire(float x, float y, float angle, color_t color, float y_speed, bool up) {
     this->position = glm::vec3(x, y, 0);
     this->rotation = angle;
     this->bounding_box.x = this->position.x;
     this->bounding_box.y = this->position.y;
     this->bounding_box.height = 1.0f;
     this->bounding_box.width = 5.0f;
-    // speed = 0.3;
+    speed = y_speed;
+    this->up = up;
+    int total;
+
     // Our vertices. Three consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
     // A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
     int n = 100;
     float r = 0.7f;
     float phi = 0;
     float theta = (2*3.14)/n;
-    GLfloat vertex_buffer_data[(n+1)*18]; 
+    total = (n+1)*18;
+    GLfloat vertex_buffer_data[total]; 
     int i;
     for (i = 0; i < 9*n; i+=9){
         vertex_buffer_data[i] =  0.0f - 3.0f;
@@ -72,7 +76,8 @@ Fire::Fire(float x, float y, float angle, color_t color) {
     vertex_buffer_data[i++] =  0.0f;
 
     
-    this->object = create3DObject(GL_TRIANGLES, (n + 1)*6, vertex_buffer_data, color, GL_FILL);
+    
+    this->object = create3DObject(GL_TRIANGLES, total/3, vertex_buffer_data, color, GL_FILL);
 }
 
 void Fire::draw(glm::mat4 VP) {
@@ -96,5 +101,21 @@ void Fire::set_position(float x, float y) {
 
 void Fire::tick(int dir) {
     this->bounding_box.x = this->position.x -= (dir*0.2);
+}
+void Fire::move() {
+    float top_range;
+    float bottom_range;
+    if (this->up){
+        top_range = 8.0f;
+        bottom_range = -6.0f;
+    }   
+    else{
+        top_range = 6.0f;
+        bottom_range = -8.0f;
+    }
+    if (this->position.y > top_range || this->position.y < bottom_range){
+        this->speed *= -1;
+    }
+    this->position.y += speed;
 }
 

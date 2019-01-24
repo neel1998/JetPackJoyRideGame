@@ -26,6 +26,16 @@ main.h
 main.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
 
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/boom.cpp
+boom.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/boom.h
+main.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
+
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/boom.h
+main.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
+
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/coin.cpp
 coin.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/coin.h
@@ -103,6 +113,10 @@ cstdlib
 -
 fire.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/fire.h
+boom.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/boom.h
+power.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/power.h
 
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
 iostream
@@ -165,6 +179,16 @@ glm/gtx/transform.hpp
 -
 glm/gtc/matrix_transform.hpp
 -
+main.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
+
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/power.cpp
+coin.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/coin.h
+power.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/power.h
+
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/power.h
 main.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
 

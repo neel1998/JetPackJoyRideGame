@@ -177,6 +177,33 @@ src/balloon.cpp.s:
 	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/balloon.cpp.s
 .PHONY : src/balloon.cpp.s
 
+src/boom.o: src/boom.cpp.o
+
+.PHONY : src/boom.o
+
+# target to build an object file
+src/boom.cpp.o:
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/boom.cpp.o
+.PHONY : src/boom.cpp.o
+
+src/boom.i: src/boom.cpp.i
+
+.PHONY : src/boom.i
+
+# target to preprocess a source file
+src/boom.cpp.i:
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/boom.cpp.i
+.PHONY : src/boom.cpp.i
+
+src/boom.s: src/boom.cpp.s
+
+.PHONY : src/boom.s
+
+# target to generate assembly for a file
+src/boom.cpp.s:
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/boom.cpp.s
+.PHONY : src/boom.cpp.s
+
 src/coin.o: src/coin.cpp.o
 
 .PHONY : src/coin.o
@@ -393,6 +420,33 @@ src/other_handlers.cpp.s:
 	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.s
 .PHONY : src/other_handlers.cpp.s
 
+src/power.o: src/power.cpp.o
+
+.PHONY : src/power.o
+
+# target to build an object file
+src/power.cpp.o:
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/power.cpp.o
+.PHONY : src/power.cpp.o
+
+src/power.i: src/power.cpp.i
+
+.PHONY : src/power.i
+
+# target to preprocess a source file
+src/power.cpp.i:
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/power.cpp.i
+.PHONY : src/power.cpp.i
+
+src/power.s: src/power.cpp.s
+
+.PHONY : src/power.s
+
+# target to generate assembly for a file
+src/power.cpp.s:
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/power.cpp.s
+.PHONY : src/power.cpp.s
+
 src/prop.o: src/prop.cpp.o
 
 .PHONY : src/prop.o
@@ -489,6 +543,9 @@ help:
 	@echo "... src/balloon.o"
 	@echo "... src/balloon.i"
 	@echo "... src/balloon.s"
+	@echo "... src/boom.o"
+	@echo "... src/boom.i"
+	@echo "... src/boom.s"
 	@echo "... src/coin.o"
 	@echo "... src/coin.i"
 	@echo "... src/coin.s"
@@ -513,6 +570,9 @@ help:
 	@echo "... src/other_handlers.o"
 	@echo "... src/other_handlers.i"
 	@echo "... src/other_handlers.s"
+	@echo "... src/power.o"
+	@echo "... src/power.i"
+	@echo "... src/power.s"
 	@echo "... src/prop.o"
 	@echo "... src/prop.i"
 	@echo "... src/prop.s"
