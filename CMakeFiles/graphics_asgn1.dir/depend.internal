@@ -47,6 +47,7 @@ CMakeFiles/graphics_asgn1.dir/src/main.cpp.o
  /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
  /home/neel/IIIT/graphics/JetPackJoyRideGame/src/power.h
  /home/neel/IIIT/graphics/JetPackJoyRideGame/src/prop.h
+ /home/neel/IIIT/graphics/JetPackJoyRideGame/src/ring.h
  /home/neel/IIIT/graphics/JetPackJoyRideGame/src/score.h
  /home/neel/IIIT/graphics/JetPackJoyRideGame/src/timer.h
  /home/neel/IIIT/graphics/JetPackJoyRideGame/src/wall.h
@@ -65,6 +66,10 @@ CMakeFiles/graphics_asgn1.dir/src/prop.cpp.o
  /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
  /home/neel/IIIT/graphics/JetPackJoyRideGame/src/prop.cpp
  /home/neel/IIIT/graphics/JetPackJoyRideGame/src/prop.h
+CMakeFiles/graphics_asgn1.dir/src/ring.cpp.o
+ /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
+ /home/neel/IIIT/graphics/JetPackJoyRideGame/src/ring.cpp
+ /home/neel/IIIT/graphics/JetPackJoyRideGame/src/ring.h
 CMakeFiles/graphics_asgn1.dir/src/score.cpp.o
  /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
  /home/neel/IIIT/graphics/JetPackJoyRideGame/src/score.cpp

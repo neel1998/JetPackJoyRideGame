@@ -12,6 +12,7 @@
 #include "power.h"
 #include "score.h"
 #include "magnet.h"
+#include "ring.h"
 using namespace std;
 
 GLMatrices Matrices;
@@ -23,6 +24,8 @@ GLFWwindow *window;
 **************************/
 int total_fire = 30;
 vector < Prop > prop;
+vector < Ring > rings;
+int ringNo = 0;
 Fire fire[30];
 Ball ball1;
 Boom boom;
@@ -38,6 +41,7 @@ int isBoom = 0;
 int isPower2 = 0;
 int isMag = 0;
 int magCount = 0;
+Ring ring;
 float screen_zoom = 1, screen_center_x = 0, screen_center_y = 0;
 float camera_rotation_angle = 0;
 vector < Score > score;
@@ -107,7 +111,11 @@ void draw() {
    	for (int i = 0; i < score.size(); i ++){
    		score[i].draw(VP);
    	}
+    for (int i = 0; i < rings.size(); i++){
+        rings[i].draw(VP);
+    }
    	magnet.draw(VP);
+    // ring.draw(VP);
 }
 
 void tick_input(GLFWwindow *window) {
@@ -129,7 +137,16 @@ void tick_input(GLFWwindow *window) {
     		for (int i = 0; i < total_fire; i++){
     			fire[i].tick(-1);
     		}
-        	ball1.moveL();
+            for (int i = 0; i < rings.size(); i++){
+                rings[i].tick(-1);
+            }
+            // ring.tick(-1);
+            ball1.moveL();
+            if (ball1.onRing){
+                ball1.position.y = rings[ringNo].position.y + sqrt( abs(25 - pow( (ball1.position.x - rings[ringNo].position.x),2)) );
+            }
+            // else{
+            // }
             magnet.tick(-1);
     	}
     	else if(ball1.position.x < -18.0f ) {
@@ -144,9 +161,17 @@ void tick_input(GLFWwindow *window) {
     			fire[i].tick(-1);
     		}
             magnet.tick(-1);
+            for (int i = 0; i < rings.size(); i++){
+                rings[i].tick(-1);
+            }
     	}
     	else {
         	ball1.moveL();
+            if (ball1.onRing){
+                ball1.position.y = rings[ringNo].position.y + sqrt( abs(25 - pow( (ball1.position.x - rings[ringNo].position.x),2) ));
+            }
+            // else{
+            // }
     	}
     	
     }
@@ -163,6 +188,9 @@ void tick_input(GLFWwindow *window) {
     			fire[i].tick(1);
     		}
             magnet.tick(1);
+            for (int i = 0; i < rings.size(); i++){
+                rings[i].tick(1);
+            }
     	}
     	if (ball1.position.x > 20){
     		ball1.set_position(0.0f, ball1.position.y);
@@ -177,8 +205,16 @@ void tick_input(GLFWwindow *window) {
     			fire[i].tick(100);
     		}	
             magnet.tick(100);
+            for (int i = 0; i < rings.size(); i++){
+                rings[i].tick(100);
+            }
         }
     	ball1.moveR();
+        if (ball1.onRing){
+            ball1.position.y = rings[ringNo].position.y + sqrt( abs(25 - pow( (ball1.position.x - rings[ringNo].position.x),2)) );
+        }
+        // else{
+        // }
     }
     if (up){
     	
@@ -189,7 +225,9 @@ void tick_input(GLFWwindow *window) {
     	x = ball1.position.x + (rand()%2 - 1)*1.0f;
     	y = ball1.position.y  - (rand()%2 + 1.0f);
     	prop.push_back(Prop(x, y, COLOR_RED));
-    	ball1.jump();
+        if (!ball1.onRing){
+    	   ball1.jump();
+        }
     	// propulsion();
     }
     if(space && shoot){
@@ -200,26 +238,47 @@ void tick_input(GLFWwindow *window) {
 }
 
 void tick_elements() {
-    if (isMag) {
-        if (magnet.type == 1){
-            if (ball1.position.x > magnet.position.x + 1.0f){
+    for (int i = 0; i < rings.size(); i++){
+        if (ball1.position.x >= rings[i].position.x - 5.0f && ball1.position.x <= rings[i].position.x + 5.0f && ball1.position.y >= rings[i].position.y && ball1.position.y <= rings[i].position.y + 5.0f) {
+            if ( abs(pow((ball1.position.y - rings[i].position.y),2) + pow( (ball1.position.x - rings[i].position.x),2) - 25 ) <= 1.0f ) {
                 ball1.gravity = 0;
-                // float angle = (ball1.position.y - magnet.position.y)/(ball1.position.x - magnet.position.x);
-                ball1.position.x -= 0.1f;
-                // ball1.position.y =
-                if (ball1.position.y > 0){
-                    ball1.position.y -= 0.1f;
-                }
-                else{
-                    ball1.position.y += 0.1f;
-                }
-            }
-            else if (ball1.position.x == magnet.position.x + 1.0f && ball1.position.y == 0){
-                ball1.position.x = magnet.position.x + 1.0f;
-                ball1.position.y = 0;
+                ball1.onRing = true;
+                ringNo = i;
+                break;
             }
             else{
                 ball1.gravity = 1;
+                ball1.onRing = false;
+            }
+        }
+        else{
+            ball1.gravity = 1;
+            ball1.onRing = false;
+        }
+    }
+
+    if (isMag) {
+        if (magnet.type == 1){
+            if ((ball1.position.x - magnet.position.x) <= 2.0f && abs(ball1.position.y - magnet.position.y) <= 2.0f){
+                ball1.position.x = magnet.position.x + 2.0f;
+                ball1.position.y = 0;
+            }
+            else{
+                if (ball1.position.x > magnet.position.x + 1.0f){
+                    ball1.gravity = 0;
+                    // float angle = (ball1.position.y - magnet.position.y)/(ball1.position.x - magnet.position.x);
+                    ball1.position.x -= 0.1f;
+                    // ball1.position.y =
+                    if (ball1.position.y > 0){
+                        ball1.position.y -= 0.1f;
+                    }
+                    else{
+                        ball1.position.y += 0.1f;
+                    }
+                }
+                else{
+                    ball1.gravity = 1;
+                }
             }
         }
         else{
@@ -248,6 +307,7 @@ void tick_elements() {
 	writeScore(c%10, (c/10)%10, (c/100)%10);
 	if (ball1.coins >= 40) {
 		ball1.stage = 2;
+        isMag = 0;
 	}
     if (ball1.health < 0) {
     	printf("=========== GAME OVER =========\n");
@@ -261,8 +321,9 @@ void tick_elements() {
        		ball1.coins += coins[i].type;
     	}
    	}
-    
-    ball1.tick();
+    // if (!ball1.onRing){
+        ball1.tick();
+    // }
     ground.tick();
     wall.tick();
    
@@ -300,7 +361,7 @@ void tick_elements() {
     	isPower2 = 1;
     }
 
-    if (rand()%(497) == 0 && isMag == 0){
+    if (rand()%(497) == 0 && isMag == 0 && ball1.stage == 2){
     	if (rand()%10 > 5){
     		magnet = Magnet(0, 0, COLOR_BLACK, 2);
     	}
@@ -309,6 +370,8 @@ void tick_elements() {
     	}
     	isMag = 1;
     }
+
+
     if (detect_collision(ball1.bounding_box, boom.bounding_box) && isBoom == 1) {
     	printf("dead\n");
     	isBoom = 0;
@@ -427,6 +490,11 @@ void initGL(GLFWwindow *window, int width, int height) {
     
     magnet = Magnet(-1000, -1000, COLOR_BLACK, 1);
     
+    for (int i =0 ;i < 10; i++){
+        rings.push_back(Ring(i*100, 0, COLOR_RED, 1));
+        
+    }
+
     for (int i = 0; i < 100; i++) {
     	if (rand()%10 < 7){
         	coins[i] = Coin(1.0*(rand()%1000 - 20), 1.0*(rand()%10), COLOR_COIN, 1);

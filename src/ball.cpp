@@ -12,6 +12,7 @@ Ball::Ball(float x, float y, color_t color) {
     this->coins = 0;
     this->health = 5;
     this->stage = 1;
+    this->onRing = false;
     // Our vertices. Three consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
     // A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
     static const GLfloat vertex_buffer_data[] = {
@@ -53,7 +54,12 @@ void Ball::tick() {
     if (this->gravity){
 	    float temp = this->position.y - (speed += 0.03);
 	    if (temp > -9){
-	    	this->bounding_box.y =  this->position.y = temp;
+	    	if (temp > 8){
+	    		this->bounding_box.y =  this->position.y = 8;
+	    	}
+	    	else{
+	    		this->bounding_box.y =  this->position.y = temp;
+	    	}
 	    }
 	    else{
 	    	this->bounding_box.y =  this->position.y = -9.0f;	
@@ -82,4 +88,7 @@ void Ball::jump() {
 	this->speed = 0.3f;
 	if (this->position.y + 2 <= 10)
 		this->bounding_box.y = this->position.y += 1;
+	else{
+		this->bounding_box.y = this->position.y = 8;
+	}
 }

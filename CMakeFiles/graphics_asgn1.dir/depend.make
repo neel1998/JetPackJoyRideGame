@@ -46,6 +46,7 @@ CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/main.cpp
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/main.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/power.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/prop.h
+CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/ring.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/score.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/timer.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/wall.h
@@ -64,6 +65,10 @@ CMakeFiles/graphics_asgn1.dir/src/power.cpp.o: src/power.h
 CMakeFiles/graphics_asgn1.dir/src/prop.cpp.o: src/main.h
 CMakeFiles/graphics_asgn1.dir/src/prop.cpp.o: src/prop.cpp
 CMakeFiles/graphics_asgn1.dir/src/prop.cpp.o: src/prop.h
+
+CMakeFiles/graphics_asgn1.dir/src/ring.cpp.o: src/main.h
+CMakeFiles/graphics_asgn1.dir/src/ring.cpp.o: src/ring.cpp
+CMakeFiles/graphics_asgn1.dir/src/ring.cpp.o: src/ring.h
 
 CMakeFiles/graphics_asgn1.dir/src/score.cpp.o: src/main.h
 CMakeFiles/graphics_asgn1.dir/src/score.cpp.o: src/score.cpp

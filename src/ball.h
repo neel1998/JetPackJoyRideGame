@@ -23,6 +23,7 @@ public:
     int health;
     int stage;
     int gravity;
+    bool onRing;
 private:
     VAO *object;
 };

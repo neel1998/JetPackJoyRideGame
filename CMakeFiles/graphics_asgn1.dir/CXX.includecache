@@ -131,6 +131,8 @@ score.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/score.h
 magnet.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/magnet.h
+ring.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/ring.h
 
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
 iostream
@@ -213,6 +215,16 @@ main.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
 
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/prop.h
+main.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
+
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/ring.cpp
+ring.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/ring.h
+main.h
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
+
+/home/neel/IIIT/graphics/JetPackJoyRideGame/src/ring.h
 main.h
 /home/neel/IIIT/graphics/JetPackJoyRideGame/src/main.h
 
