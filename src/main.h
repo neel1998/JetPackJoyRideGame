@@ -8,7 +8,6 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
@@ -33,7 +32,7 @@ void keyboard(GLFWwindow *window, int key, int scancode, int action, int mods);
 void keyboardChar(GLFWwindow *window, unsigned int key);
 void mouseButton(GLFWwindow *window, int button, int action, int mods);
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
-
+void drawHealth(int h);
 // other_handlers.cpp
 void error_callback(int error, const char *description);
 void quit(GLFWwindow *window);
@@ -41,7 +40,6 @@ void reshapeWindow(GLFWwindow *window, int width, int height);
 void propulsion();
 void checkCoinCollision();
 void writeScore(int unit, int dec, int hund );
-
 // Types
 struct VAO {
     GLuint VertexArrayID;

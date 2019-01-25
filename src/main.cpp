@@ -23,6 +23,7 @@ GLFWwindow *window;
 * Customizable functions *
 **************************/
 int total_fire = 30;
+vector < Coin > health;
 vector < Prop > prop;
 vector < Ring > rings;
 int ringNo = 0;
@@ -115,6 +116,9 @@ void draw() {
         rings[i].draw(VP);
     }
    	magnet.draw(VP);
+    for (int i = 0; i < health.size(); i++) {
+        health[i].draw(VP);
+    }
     // ring.draw(VP);
 }
 
@@ -124,6 +128,12 @@ void tick_input(GLFWwindow *window) {
     int right = glfwGetKey(window, GLFW_KEY_RIGHT);
     int up = glfwGetKey(window, GLFW_KEY_UP);
     int space = glfwGetKey(window, GLFW_KEY_SPACE);
+    int q = glfwGetKey(window, GLFW_KEY_Q);
+    if (q){
+        printf("=========== GAME OVER =========\n");
+        printf("COINS = %d\n",ball1.coins);
+        quit(window);
+    }
     if (left) {
         // Do something
         if (ball1.position.x > 0){
@@ -238,6 +248,7 @@ void tick_input(GLFWwindow *window) {
 }
 
 void tick_elements() {
+    drawHealth(ball1.health);
     for (int i = 0; i < rings.size(); i++){
         if (ball1.position.x >= rings[i].position.x - 5.0f && ball1.position.x <= rings[i].position.x + 5.0f && ball1.position.y >= rings[i].position.y && ball1.position.y <= rings[i].position.y + 5.0f) {
             if ( abs(pow((ball1.position.y - rings[i].position.y),2) + pow( (ball1.position.x - rings[i].position.x),2) - 25 ) <= 1.0f ) {
@@ -259,9 +270,10 @@ void tick_elements() {
 
     if (isMag) {
         if (magnet.type == 1){
-            if ((ball1.position.x - magnet.position.x) <= 2.0f && abs(ball1.position.y - magnet.position.y) <= 2.0f){
+            if (abs(ball1.position.x - magnet.position.x) <= 2.0f && abs(ball1.position.y - magnet.position.y) <= 2.0f){
                 ball1.position.x = magnet.position.x + 2.0f;
                 ball1.position.y = 0;
+                ball1.gravity = 0;
             }
             else{
                 if (ball1.position.x > magnet.position.x + 1.0f){
@@ -282,25 +294,32 @@ void tick_elements() {
             }
         }
         else{
-            if (ball1.position.x < magnet.position.x - 1.0f ){
-                ball1.gravity = 0;
-                // float angle = (ball1.position.y - magnet.position.y)/(ball1.position.x - magnet.position.x);
-                ball1.position.x += 0.1f;
-                // ball1.position.y =
-                if (ball1.position.y > 0){
-                    ball1.position.y -= 0.1f;
-                }
-                else{
-                    ball1.position.y += 0.1f;
-                }
-            }
-            else if (ball1.position.x == magnet.position.x + 1.0f && ball1.position.y == 0){
-                ball1.position.x = magnet.position.x - 1.0f;
+            if (abs(magnet.position.x - ball1.position.x ) <= 2.0f && abs(ball1.position.y - magnet.position.y) <= 2.0f){
+                ball1.position.x = magnet.position.x - 2.0f;
                 ball1.position.y = 0;
+                ball1.gravity = 0;
             }
             else{
-                ball1.gravity = 1;
-            }
+                if (ball1.position.x < magnet.position.x - 1.0f ){
+                    ball1.gravity = 0;
+                    // float angle = (ball1.position.y - magnet.position.y)/(ball1.position.x - magnet.position.x);
+                    ball1.position.x += 0.1f;
+                    // ball1.position.y =
+                    if (ball1.position.y > 0){
+                        ball1.position.y -= 0.1f;
+                    }
+                    else{
+                        ball1.position.y += 0.1f;
+                    }
+                }
+                else if (ball1.position.x == magnet.position.x + 1.0f && ball1.position.y == 0){
+                    ball1.position.x = magnet.position.x - 1.0f;
+                    ball1.position.y = 0;
+                }
+                else{
+                    ball1.gravity = 1;
+                }
+            }   
         }
     }
 	int c = ball1.coins;
@@ -310,8 +329,7 @@ void tick_elements() {
         isMag = 0;
 	}
     if (ball1.health < 0) {
-    	printf("=========== GAME OVER =========\n");
-    	printf("COINS = %d\n",ball1.coins);
+    	
     	quit(window);
     }
 	power.tick();
@@ -361,7 +379,7 @@ void tick_elements() {
     	isPower2 = 1;
     }
 
-    if (rand()%(497) == 0 && isMag == 0 && ball1.stage == 2){
+    if (rand()%(497) == 0 && isMag == 0 && ball1.stage == 1){
     	if (rand()%10 > 5){
     		magnet = Magnet(0, 0, COLOR_BLACK, 2);
     	}
@@ -372,14 +390,12 @@ void tick_elements() {
     }
 
 
-    if (detect_collision(ball1.bounding_box, boom.bounding_box) && isBoom == 1) {
-    	printf("dead\n");
+    if (detect_collision(ball1.bounding_box, boom.bounding_box) && isBoom == 1 && !ball1.onRing) {
     	isBoom = 0;
     	ball1.health --;
     	boom.collided = true;
     }
     if (detect_collision(ball1.bounding_box, power.bounding_box) && isPower2 == 1) {
-    	printf("power Up\n");
     	isPower2 = 0;
     	power.collided = true;
     	if (power.type == 1){
@@ -419,7 +435,7 @@ void tick_elements() {
     	if (!fire[i].collided) {
    			float dist1 = sqrt( pow(ball1.position.x - fire[i].position.x - 3*cos(fire[i].rotation * M_PI / 180.0f),2) + pow(ball1.position.y - fire[i].position.y - 3*sin(fire[i].rotation * M_PI / 180.0f) ,2) ); 
     		float dist2 = sqrt( pow(ball1.position.x - fire[i].position.x + 3*cos(fire[i].rotation * M_PI / 180.0f),2) + pow(ball1.position.y - fire[i].position.y + 3*sin(fire[i].rotation * M_PI / 180.0f) ,2) );
-    		if ( abs(dist1 + dist2 - 6.0f) <= 0.05f) {
+    		if ( abs(dist1 + dist2 - 6.0f) <= 0.05f && !ball1.onRing) {
     			ball1.position.x = -18.0f;
     			ball1.health --;	
     		}
@@ -433,6 +449,12 @@ void tick_elements() {
    		prop[i].tick();
    	}
     camera_rotation_angle += 1;
+}
+void drawHealth(int h){
+    health.clear();
+    for (int i = 0; i < h; i++){
+        health.push_back(Coin(-1.5 + i*1.0, 12, COLOR_RED, 1));
+    }
 }
 void writeScore(int unit, int dec, int hund ){
 	score.clear();
@@ -545,7 +567,7 @@ int main(int argc, char **argv) {
     /* Draw in loop */
     while (!glfwWindowShouldClose(window)) {
         // Process timers
-
+        reset_screen();
         if (t60.processTick()) {
             // 60 fps
             // OpenGL Draw commands
